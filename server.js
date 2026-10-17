@@ -427,8 +427,12 @@ app.use((err, _req, res, _next) => {
 });
 
 async function startServer() {
+  const mongoUri = process.env.MONGODB_URI;
+  if (!mongoUri) {
+    console.error("MONGODB_URI is not set. Add it to .env locally, or to the service's Environment settings on Render.");
+    process.exit(1);
+  }
   try {
-    const mongoUri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/expense_buddy";
     await mongoose.connect(mongoUri);
     console.log("MongoDB connected successfully.");
 
