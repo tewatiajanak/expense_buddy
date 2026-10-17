@@ -1,0 +1,13 @@
+# Render Blueprint: creates the Expense Buddy API web service.
+services:
+  - type: web
+    name: expense-buddy-api
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: MONGODB_URI
+        sync: false # entered in the Render dashboard, never committed
